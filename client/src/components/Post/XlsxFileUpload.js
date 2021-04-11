@@ -5,30 +5,28 @@ import Button from "@material-ui/core/Button";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles(() => ({
+  root: {
+    margin: "20px",
+    padding: "10px",
+  },
   main: {
-    padding: " 50px !important",
+    padding: " 0px 50px !important",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
 
   fileInfo: {
-    padding: "50px !important",
+    padding: "10px 50px !important",
   },
 }));
 
-/**
- * Component to display thumbnail of image.
- */
-const ImageThumb = ({ image }) => {
-  return <img width="500" height="300" src={URL.createObjectURL(image)} alt={image.name} />;
-};
 
 /**
  * Component to handle file upload. Works for image
  * uploads, but can be edited to work for any file.
  */
-export default function XlsxFileUpload() {
+export default function XlsxFileUpload(props) {
   const classes = useStyles();
 
   // State to store uploaded file
@@ -48,6 +46,7 @@ export default function XlsxFileUpload() {
       .then((res) => {
         // then print response status
         console.log(res);
+        props.parentCallback(res);
       })
       .catch((err) => {
         console.error(err);
@@ -58,8 +57,8 @@ export default function XlsxFileUpload() {
 
   return (
     <div className={classes.root}>
+      <h2>Xlsx File</h2>
       <div className={classes.main}>
-        Xlsx File
         <Button
           variant="contained"
           color="default"
@@ -73,7 +72,6 @@ export default function XlsxFileUpload() {
         <p>Filename: {file.name}</p>
         <p>File type: {file.type}</p>
         <p>File size: {file.size} bytes</p>
-        {file && <ImageThumb image={file} />}
       </div>
     </div>
   );

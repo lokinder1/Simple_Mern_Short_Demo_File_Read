@@ -1,11 +1,9 @@
 const express = require("express");
 var multer = require("multer");
 var cors = require("cors");
-// const Papa = require("papaparse");
 const reader = require("xlsx");
 const csv = require("csv-parser");
 const fs = require("fs");
-const FileType = require("file-type");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,6 +19,10 @@ const fileFilter = async (req, file, cb) => {
     "application/wps-office.xlsx",
     "text/csv",
     "text/plain",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel.sheet.binary.macroEnabled.12",
+    "application/vnd.ms-excel",
+    "application/vnd.ms-excel.sheet.macroEnabled.12",
   ];
   if (!allowedMimeTypes.includes(file.mimetype)) {
     req.fileValidationError = "Only xlsx, txt, csv files are allowed!";

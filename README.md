@@ -3,7 +3,6 @@ It's a simple example or demo project to demonstrate to read files like xlsx, cs
 it's made by using following technologies
 - ReactJS
 - NodeJS
-- MongoDB
 - ExpressJS
 - MaterialUI
 
@@ -30,3 +29,23 @@ it's made by using following technologies
     3. start App
     yarn start
 ```
+
+## Tasks Completed
+
+1. Homepage
+2. Text Component
+3. CSV Component
+4. XLSX Component
+5. Basic Server to handle files
+
+
+## Demo ScreenShots
+
+- Text File
+  ![Text](txt.png)
+
+- CSV File
+  ![CSV](csv.png)
+
+- XLSX File
+  ![XLSX](xlsx.png)

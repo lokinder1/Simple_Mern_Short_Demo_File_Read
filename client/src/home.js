@@ -1,18 +1,15 @@
-import React from "react";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import TxtFileUpload from "./components/Post/TxtFileUpload";
-import CSVFileUpload from "./components/Post/CSVFileUpload";
-import XlsxFileUpload from "./components/Post/XlsxFileUpload";
-
-
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import HomeIcon from "@material-ui/icons/Home";
-import Paper from "@material-ui/core/Paper";
-
-import Button from "@material-ui/core/Button";
 import PersonalFooter from "@bit/lokinder1.footers.personal-footer";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import HomeIcon from "@material-ui/icons/Home";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import CSVFileUpload from "./components/Post/CSVFileUpload";
+import TxtFileUpload from "./components/Post/TxtFileUpload";
+import XlsxFileUpload from "./components/Post/XlsxFileUpload";
+import ShowResult from "./components/ShowResult";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,12 +17,11 @@ const useStyles = makeStyles(() => ({
     "overflow-x": "hidden",
   },
   main: {
-    marginBottom: "-1px",
-    minHeight: "87vh",
+    minHeight: "calc(100vh - 120px)",
   },
 
   uploadFile: {
-    padding: " 50px !important",
+    padding: " 0px 50px !important",
   },
 
   button: {
@@ -35,6 +31,12 @@ const useStyles = makeStyles(() => ({
 
 export default function Home() {
   const classes = useStyles();
+  // State to store uploaded file
+  const [fileData, setFileData] = useState("");
+
+  const handleCallback = (result) => {
+    setFileData(result.data);
+  };
 
   return (
     <Router>
@@ -57,16 +59,19 @@ export default function Home() {
               <Grid container spacing={2}>
                 <Grid className={classes.uploadFile} item xs={12} sm={6}>
                   <Paper elevation={3}>
-                    <TxtFileUpload />
-                    <CSVFileUpload />
-                    <XlsxFileUpload />
-
+                    <TxtFileUpload parentCallback={handleCallback} />
+                  </Paper>
+                  <Paper elevation={3}>
+                    <CSVFileUpload parentCallback={handleCallback} />
+                  </Paper>
+                  <Paper elevation={3}>
+                    <XlsxFileUpload parentCallback={handleCallback} />
                   </Paper>
                 </Grid>
 
                 <Grid className={classes.uploadFile} item xs={12} sm={6}>
                   <Paper elevation={3}>
-                    
+                    <ShowResult resultJson={fileData} />
                   </Paper>
                 </Grid>
               </Grid>
